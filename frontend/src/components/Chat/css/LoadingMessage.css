@@ -1,0 +1,24 @@
+@keyframes scrollGradient {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.loading-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #171717, #f7f7f7, #171717);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+    animation: scrollGradient 3s infinite linear;
+    display: inline-block;
+    transition: opacity 0.5s;
+}
+
+.loading-message.fading {
+    opacity: 0;
+}

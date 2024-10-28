@@ -1,0 +1,102 @@
+:root {
+    --doc-height: 100%;
+}
+
+.sidebar {
+    width: 250px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-color: var(--surface-b);
+    color: var(--text-color);
+    height: var(--doc-height);
+    min-height: var(--doc-height);
+}
+
+.sidebar-header {
+    width: 100%;
+    height: 4.2rem;
+    min-height: 4.2rem;
+    padding: 10px;
+    background-color: var(--surface-b);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.sidebar-content {
+    flex-grow: 1;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.p-listbox .p-listbox-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+.sidebar.visible {
+    transform: translateX(0);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+@media (min-width: 600px) {
+    .sidebar {
+        position: static;
+        transform: none;
+        width: 250px;
+    }
+}
+
+@media (max-width: 400px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
+
+.listbox-item-template {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0.5rem 0 0.5rem 0;
+}
+
+.item-label {
+    display: flex;
+    align-items: center;
+    flex: 1
+}
+
+.align-right-button {
+    margin-left: auto;
+}
+
+.p-listbox-item {
+    height: 3rem;
+    padding: 0.5rem 0.3rem
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

@@ -1,0 +1,74 @@
+.input-box-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.uploaded-files {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    background-color: var(--custom-chat-inputbox-upload-file-list-background-color);
+    border: 1px solid var(--custom-chat-inputbox-upload-file-list-border-color);
+    border-radius: 10px;
+    padding: 5px 0 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    max-width: 100%;
+}
+
+.file-list-file-name {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.file-list-remove-item-btn {
+    flex-shrink: 0;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--custom-chat-inputbox-border-color);
+    border-radius: 25px;
+    padding: 5px 5px;
+    background-color: var(--custom-chat-inputbox-background-color);
+}
+
+.message-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    height: 35px;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: var(--custom-chat-inputbox-background-color);
+}
+
+.upload-btn,
+.send-btn {
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.upload-btn .p-button-icon,
+.send-btn .p-button-icon {
+    font-size: 1.2em;
+}
+
+.upload-btn .p-button-label {
+    display: none;
+}

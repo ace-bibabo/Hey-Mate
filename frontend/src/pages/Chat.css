@@ -1,0 +1,125 @@
+:root {
+    --doc-height: 100%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: var(--doc-height);
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    display: flex;
+    height: calc(var(--doc-height) - 1px);
+    position: relative;
+}
+
+.main-content {
+    flex-grow: 1;
+    min-height: calc(100% - 4.2rem);
+    display: flex;
+    flex-direction: column;
+    margin-top: 4.2rem;
+    margin-bottom: 70px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.main-content-header {
+    top: 0;
+    width: 100%;
+    height: 4.2rem;
+    min-height: 4.2rem;
+}
+
+.main-tool-bar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.main-tool-bar.collapsed {
+    width: 110px;
+}
+
+.main-tool-bar-tools {
+    width: 195px;
+    padding: calc(1em + 10px);;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    transition: width 0.3s ease-in-out;
+}
+
+.main-tool-bar-misc {
+    width: 195px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(1em + 10px);;
+}
+
+.main-tool-bar-tools.collapsed {
+    width: 110px;
+}
+
+.main-content-header.collapsed {
+    width: calc(100% - 110px);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-100);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--surface-300);
+}
+
+.input-box-container {
+    width: 100%;
+    padding: 10px 8% 0 8%;
+    z-index: 900;
+}
+
+@media (max-width: 800px) {
+    .input-box-container {
+        padding: 10px 5% 0 5%;
+    }
+}
+
+.greeting-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.greeting-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.messages {
+    scrollbar-gutter: stable both-edges;
+}

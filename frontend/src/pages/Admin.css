@@ -1,0 +1,78 @@
+:root {
+    --doc-height: 100%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    display: flex;
+    height: var(--doc-height);
+    position: relative;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 1em;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+}
+
+.input-group textarea {
+    height: calc(5 * 1.5em);
+    width: 100%;
+    resize: none;
+    padding: 0.5em;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.button-group .p-button {
+    margin-right: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-100);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--surface-300);
+}

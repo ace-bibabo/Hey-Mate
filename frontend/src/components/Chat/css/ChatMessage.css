@@ -1,0 +1,155 @@
+/* Container for individual messages */
+.message-container {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px;
+}
+
+/* Align user messages to the right */
+.message-container.user {
+    justify-content: flex-end;
+}
+
+/* Align other messages to the left */
+.message-container.other {
+    justify-content: flex-start;
+}
+
+/* Message bubble styles */
+.message-container.bubble .message {
+    padding: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* User message bubble styles */
+.message-container.user.bubble .message {
+    border-radius: 10px 3px 10px 10px;
+    background-color: var(--custom-chat-message-user-background-color);
+    color: var(--custom-chat-message-user-text-color);
+}
+
+/* Other message bubble styles */
+.message-container.other.bubble .message {
+    border-radius: 3px 10px 10px 10px;
+    background-color: var(--custom-chat-message-bot-background-color);
+    color: var(--custom-chat-message-bot-text-color);
+    font-size: 1.3rem;
+}
+
+/* Message block for grouping messages and tool buttons */
+.message-block {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Avatar styling for messages */
+.message-avatar-container {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.message-avatar{
+    background-color: var(--custom-chat-message-bot-avatar-background-color);
+    border: solid 1px var(--custom-chat-message-bot-avatar-border-color);
+    width: 35px;
+    height: 35px;
+}
+
+/* Container for all messages */
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    display: inline-block;
+    scroll-behavior: smooth;
+    padding: 10px 15%;
+    box-sizing: border-box;
+    transition: padding 0.3s ease-in-out;
+}
+
+/* Responsive padding adjustment */
+@media (max-width: 800px) {
+    .messages {
+        padding: 10px 5%;
+    }
+}
+
+.message-tool-button-container {
+    margin-top: 8px;
+}
+
+.message-tool-button {
+    width: 32px;
+    height: 32px;
+    background: var(--custom-chat-message-bot-tool-btn-background-color);
+    border: var(--custom-chat-message-bot-tool-btn-background-color);
+    padding: 0;
+}
+
+.message-tool-button-icon {
+    color: var(--custom-chat-message-bot-tool-btn-color);
+}
+
+.message-file-block {
+    color: black;
+    background-color: var(--custom-chat-message-user-file-block-background-color);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.message-file-block .message-file-block-file-info{
+    margin-left: 10px;
+}
+
+.message-file-block-icon{
+    color: var(--custom-chat-message-user-file-block-file-icon-color)
+}
+
+.message-file-block-filename{
+    color: var(--custom-chat-message-user-file-block-filename-color)
+}
+
+.message-file-block-file-ext{
+    font-size: 12px;
+    color: var(--text-color-secondary)
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Loading message styling */
+.loading-message {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.loading-message-outer{
+    align-self: center;
+}
+
+.loading-message span {
+    vertical-align: top;
+}
