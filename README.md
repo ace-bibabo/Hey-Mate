@@ -1,5 +1,7 @@
 # System Architecture and Design
 
+> resource needed: **OPENAI API**
+
 ## Overview
 
 This system provides a robust chatbot interface designed for **Admins** and **Users**. Admins configure prompts that guide the chatbot's responses, while Users interact with the chatbot to gain industry-specific insights. 
