@@ -12,7 +12,6 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 - **Users**: Queries the chatbot with industry-specific questions, uploads files or images for knowledge enrichment, and receives structured responses.
 
 ## System Architecture Diagram
-   <img width="540" alt="Screenshot 2024-10-29 at 3 22 40 pm" src="https://github.com/user-attachments/assets/5cd571bb-fef1-4d9d-a5d9-f7278d31b4e1">
 
 ### Components and Interactions
 
@@ -64,6 +63,9 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
    - The chatbot interface displays the response, enriched by the RAG module, providing the user with an answer that reflects the uploaded document's context.
 
 ## Technology Stack
+   
+    <img width="540" alt="Screenshot 2024-10-29 at 3 22 40 pm" src="https://github.com/user-attachments/assets/5cd571bb-fef1-4d9d-a5d9-f7278d31b4e1">
+
 
 ### Front-End
 - **React JS**: Used for building dynamic user interfaces with a component-based structure for reusability.
@@ -116,45 +118,10 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 - **Multi-Modal Input Processing**: Accepts and processes different types of inputs (text, files, images) to deliver tailored responses.
 - **Adaptive System Prompting**: Default and system prompts define the chatbot’s behavior, guiding its responses based on query type.
 
-## Limitations and Future Work
-
-### Chat Page
-- **Limitations**:
-  - Does not support multiple file uploads simultaneously.
-  - Lacks advanced text styling options (e.g., Markdown).
-  - May have delays with large file uploads.
-
-- **Future Enhancements**:
-  - Add local file caching for improved file management.
-  - Implement asynchronous file uploads to prevent blocking.
-  - Introduce a more visually appealing interface.
-
-### Admin Page
-- **Limitations**:
-  - No user authentication for accessing the admin interface.
-  - Lacks prompt templates, making prompt setup time-consuming.
-
-- **Future Enhancements**:
-  - Add authentication to secure the admin interface.
-  - Provide a template library to facilitate easier prompt setup.
-
-### Back-End
-- **Limitations**:
-  - SQLite may not handle high-concurrency or large datasets efficiently in production.
-  - Limited scalability in the current design.
-
-- **Future Enhancements**:
-  - Upgrade to PostgreSQL or MySQL for production.
-  - Investigate microservices for improved scalability.
-
-### Chatbot
-- **Limitations**: Manual prompt updates are required for refinement.
-- **Future Work**: Introduce adaptive learning to automatically improve prompt quality based on successful interactions.
-
 
 ---
 
-## working on  
+## todo list  
 
 ### File Upload Handling
 
