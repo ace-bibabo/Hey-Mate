@@ -12,6 +12,7 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 - **Users**: Queries the chatbot with industry-specific questions, uploads files or images for knowledge enrichment, and receives structured responses.
 
 ## System Architecture Diagram
+<img width="648" alt="Screenshot 2024-10-29 at 3 22 40 pm" src="https://github.com/user-attachments/assets/5cd571bb-fef1-4d9d-a5d9-f7278d31b4e1">
 
 ### Components and Interactions
 
@@ -31,15 +32,20 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
    - **Embedding and Retrieval**: Uses LangChain to create embeddings of the extracted text and stores them in a vector database.
    - **Contextual Query Retrieval**: When a query is received, LangChain retrieves relevant information from the uploaded documents using similarity search and integrates it into the prompt.
    - This module allows the chatbot to generate answers that are based on specific knowledge provided by the user, improving accuracy and relevance.
+  
+<img width="786" alt="Screenshot 2024-10-29 at 3 20 56 pm" src="https://github.com/user-attachments/assets/0da1f0ed-74d1-4920-bcdc-481302fe0777">
+<img width="798" alt="Screenshot 2024-10-29 at 3 21 40 pm" src="https://github.com/user-attachments/assets/c75eca32-d8e8-4d85-9173-f2fd3c823775">
+<img width="540" alt="Screenshot 2024-10-29 at 3 22 23 pm" src="https://github.com/user-attachments/assets/3349ccd0-2e90-4370-bb40-85d56ca48133">
 
-5. **LLM (Large Language Model)**:
+
+6. **LLM (Large Language Model)**:
    - The Prompt Engine sends API requests to OpenAI's LLM (GPT-4.0), which processes combined prompts and retrieved information from the RAG module.
    - The LLM generates responses using both the pre-configured prompts and user-specific data as context.
 
-6. **Visualization Engine**:
+7. **Visualization Engine**:
    - Formats the response from the LLM to ensure compatibility with the front-end display.
 
-7. **Chatbot Interface**:
+8. **Chatbot Interface**:
    - Displays responses to the Users in a conversational format and supports interactions like file uploads and image processing.
 
 ### Workflow of Capability Components
@@ -149,7 +155,7 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 
 ---
 
-## timeline 
+## Timeline 
 
 ### File Upload Handling
 
