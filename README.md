@@ -12,7 +12,7 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 - **Users**: Queries the chatbot with industry-specific questions, uploads files or images for knowledge enrichment, and receives structured responses.
 
 ## System Architecture Diagram
-<img width="540" alt="Screenshot 2024-10-29 at 3 22 40 pm" src="https://github.com/user-attachments/assets/5cd571bb-fef1-4d9d-a5d9-f7278d31b4e1">
+   <img width="540" alt="Screenshot 2024-10-29 at 3 22 40 pm" src="https://github.com/user-attachments/assets/5cd571bb-fef1-4d9d-a5d9-f7278d31b4e1">
 
 ### Components and Interactions
 
@@ -33,8 +33,8 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
    - **Contextual Query Retrieval**: When a query is received, LangChain retrieves relevant information from the uploaded documents using similarity search and integrates it into the prompt.
    - This module allows the chatbot to generate answers that are based on specific knowledge provided by the user, improving accuracy and relevance.
   
-<img width="540" alt="Screenshot 2024-10-29 at 3 20 56 pm" src="https://github.com/user-attachments/assets/0da1f0ed-74d1-4920-bcdc-481302fe0777">
-<img width="540" alt="Screenshot 2024-10-29 at 3 22 23 pm" src="https://github.com/user-attachments/assets/3349ccd0-2e90-4370-bb40-85d56ca48133">
+   <img width="540" alt="Screenshot 2024-10-29 at 3 20 56 pm" src="https://github.com/user-attachments/assets/0da1f0ed-74d1-4920-bcdc-481302fe0777">
+   <img width="540" alt="Screenshot 2024-10-29 at 3 22 23 pm" src="https://github.com/user-attachments/assets/3349ccd0-2e90-4370-bb40-85d56ca48133">
 
 
 6. **LLM (Large Language Model)**:
