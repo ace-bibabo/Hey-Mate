@@ -43,6 +43,7 @@ class ChatBot:
             openai_api_key=os.getenv("OPENAI_API_KEY")
         )
         self.chat_history = ChatMessageHistory()
+        print("chat bot initialized")
 
     def answer(self, question, upload_file=None):
         content = self.chain(question, upload_file)
