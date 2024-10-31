@@ -1,23 +1,25 @@
 version: '3.8'
 services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_BASE_URL: "${REACT_APP_API_BASE_URL}"  # Pass API URL from .env
     ports:
       - "3000:3000"
     volumes:
       - ./frontend/src:/app/src
 
+
+
   web:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:${API_PORT:-8000}  # Use API_PORT from .env or default to 8000
     volumes:
       - ./backend:/app
     ports:
-      - "${BACKEND_PORT:-8000}:${BACKEND_PORT:-8000}"
+      - "${API_PORT:-8000}:${API_PORT:-8000}"  # Expose API_PORT dynamically
     env_file:
       - .env
-    environment:
-      - HOST=${HOST}
-      - PORT=${BACKEND_PORT}

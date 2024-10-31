@@ -6,8 +6,12 @@ WORKDIR /app
 COPY package*.json ./
 # command that is run to install dependencies
 RUN npm install
+# Accept REACT_APP_API_BASE_URL as a build argument
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
 # copy all files from the current directory to the working directory
 COPY . .
+
 # expose port 3000 to the outside world (required to access the app at port 3000 however, we map this internal 3000 to an external port in the docker-compose file)
 EXPOSE 3000
 # command that is run to start the app (can be overriden in the docker-compose file)
