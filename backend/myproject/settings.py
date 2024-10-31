@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-@j-qlrc5547*!z5o&vbwy@9r(%t3+$at4ku4fk6x0vx!-^oe&5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.getenv("HOST", "localhost")]
 
 
 # Application definition
@@ -73,7 +74,7 @@ TEMPLATES = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    os.getenv("CORS_ALLOWED_ORIGIN", "http://localhost:3000"),
 ]
 
 WSGI_APPLICATION = "myproject.wsgi.application"

@@ -21,6 +21,8 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 
 # Load environment variables
 load_dotenv()
+api_host = os.getenv("API_HOST", "http://localhost")
+api_port = os.getenv("API_PORT", "8000")
 
 class FileType(Enum):
     FILE = 'FILE'
@@ -105,7 +107,7 @@ class ChatBot:
             systemMsgs.append({"type": "text", "text": f"{prompt_rules}"})
 
             # prompt from db
-            url = "http://localhost:8000/api/prompts/default/"
+            url = f"{api_host}:{api_port}/api/prompts/default/"
             headers = {
                 'accept': 'application/json',
                 'X-CSRFToken': 'CJXX8NrHT3MadHMw7DkQGlzqHbYlBrwURqMhqvT08axpSFEhufdu2WUHxQbOWdf4'
