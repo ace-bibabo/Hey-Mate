@@ -2,8 +2,10 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
+    baseUrl: process.env.CYPRESS_BASE_URL || 'http://localhost:3000', // Fallback to localhost if not set
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
+      return config;
     },
     reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
@@ -23,3 +25,4 @@ module.exports = defineConfig({
     },
   },
 });
+

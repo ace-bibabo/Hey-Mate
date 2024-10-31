@@ -3,7 +3,7 @@
 describe('Navigation Tests', () => {
   beforeEach(() => {
     // Visit the chat page before each test
-    cy.visit('http://localhost:3000/chat');
+    cy.visit('/chat');
   });
 
   it('should navigate to Admin Panel when the button is clicked', () => {

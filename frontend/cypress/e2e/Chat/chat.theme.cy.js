@@ -3,7 +3,7 @@
 describe('Theme Switch Tests', () => {
   beforeEach(() => {
     // Visit the chat page before each test
-    cy.visit('http://localhost:3000/chat');
+    cy.visit('/chat');
   });
 
   it('should load the light theme CSS file if theme is set to light', () => {

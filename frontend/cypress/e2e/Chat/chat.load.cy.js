@@ -3,7 +3,7 @@
 describe('Chat Page Load Tests', () => {
   beforeEach(() => {
     // Visit the chat page before each test
-    cy.visit('http://localhost:3000/chat');
+    cy.visit('/chat');
   });
 
   it('should render the Greeting message successfully', () => {

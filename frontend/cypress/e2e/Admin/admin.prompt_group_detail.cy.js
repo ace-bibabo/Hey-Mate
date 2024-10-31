@@ -3,7 +3,7 @@
 describe('Prompt Group Detail Tests', () => {
   it('should add new prompts and interact with them', () => {
     // Visit the admin page
-    cy.visit('http://localhost:3000/admin');
+    cy.visit('/admin');
     // Clear localStorage
     cy.window().then((win) => {
       win.localStorage.clear();

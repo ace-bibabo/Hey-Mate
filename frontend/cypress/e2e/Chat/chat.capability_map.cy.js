@@ -3,7 +3,7 @@
 describe('Capability Map Generation Tests', () => {
   before(() => {
     // Visit the chat page before the tests start
-    cy.visit('http://localhost:3000/chat');
+    cy.visit('/chat');
     // Ensure localStorage is clear before the tests start
     cy.window().then((win) => {
       win.localStorage.clear();

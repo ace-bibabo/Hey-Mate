@@ -3,7 +3,7 @@
 describe('Input Box Tests', () => {
   beforeEach(() => {
     // Visit the chat page before each test
-    cy.visit('http://localhost:3000/chat');
+    cy.visit('/chat');
     // Ensure localStorage is clear before each test
     cy.window().then((win) => {
       win.localStorage.clear();

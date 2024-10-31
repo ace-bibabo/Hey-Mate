@@ -3,7 +3,7 @@
 describe('Admin Page Tests', () => {
   it('should add a new prompt and increase the list count', () => {
     // Visit the admin page
-    cy.visit('http://localhost:3000/admin');
+    cy.visit('/admin');
     // Clear localStorage
     cy.window().then((win) => {
       win.localStorage.clear();
@@ -27,7 +27,7 @@ describe('Admin Page Tests', () => {
 
   it('should navigate to chat page when navigate button is clicked', () => {
     // Visit the admin page
-    cy.visit('http://localhost:3000/admin');
+    cy.visit('/admin');
     // Clear localStorage
     cy.window().then((win) => {
       win.localStorage.clear();
@@ -45,7 +45,7 @@ describe('Admin Page Tests', () => {
 
   it('should toggle the sidebar collapse state', () => {
     // Visit the admin page
-    cy.visit('http://localhost:3000/admin');
+    cy.visit('/admin');
     // Clear localStorage
     cy.window().then((win) => {
       win.localStorage.clear();
@@ -71,7 +71,7 @@ describe('Admin Page Tests', () => {
 
   it('should toggle the theme and update localStorage', () => {
     // Visit the admin page
-    cy.visit('http://localhost:3000/admin');
+    cy.visit('/admin');
     // Clear localStorage
     cy.window().then((win) => {
       win.localStorage.clear();
