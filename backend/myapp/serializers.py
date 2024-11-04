@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from drf_yasg import openapi
-from .models import Prompt, PromptGroup
+from .models_bak import Prompt, PromptGroup
 
 # Define the request body and response body in the Swagger document
 question_schema = openapi.Schema(
