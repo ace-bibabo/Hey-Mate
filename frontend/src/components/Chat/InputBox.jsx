@@ -147,7 +147,7 @@ const InputBox = ({ onSend }) => {
           ref={fileUploadRef}
           mode="basic"
           name="files[]"
-          accept=".txt,.pdf,.jpg,.jpeg,.png"
+          accept=".txt,.pdf,.jpg,.jpeg,.png,.csv"
           customUpload
           chooseLabel=""
           chooseOptions={{ icon: 'pi pi-paperclip', className: 'p-button-rounded p-button-text upload-btn' }}

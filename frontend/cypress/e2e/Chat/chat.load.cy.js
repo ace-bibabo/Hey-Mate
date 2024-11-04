@@ -7,8 +7,8 @@ describe('Chat Page Load Tests', () => {
   });
 
   it('should render the Greeting message successfully', () => {
-    // Check if there is an h2 tag with the text "Welcome to the EA Assist"
-    cy.get('h2').should('exist').and('contain.text', 'Welcome to the EA Assist');
+    // Check if there is an h2 tag with the text "Welcome to the Hey Mate"
+    cy.get('h2').should('exist').and('contain.text', 'Welcome to the Hey Mate');
   });
 
   it('should render the input box successfully', () => {

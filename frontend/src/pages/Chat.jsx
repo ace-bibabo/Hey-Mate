@@ -197,7 +197,7 @@ const Chat = () => {
           {messages.length === 0 ? (
             <div className="greeting-container">
               <i className={`pi pi-comments greeting-icon`} />
-              <h2>Welcome to the EA Assist</h2>
+              <h2>Welcome to the Hey Mate</h2>
               <p>Start by typing your message in the input box below.</p>
             </div>
           ) : (
