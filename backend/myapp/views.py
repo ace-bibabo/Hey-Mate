@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
-from .models_bak import ChatBot, Prompt, PromptGroup
+from .models import ChatBot, Prompt, PromptGroup
 from .serializers import PromptSerializer, PromptGroupSerializer, question_schema, response_schema
 
 class ChatAPIView(APIView):
