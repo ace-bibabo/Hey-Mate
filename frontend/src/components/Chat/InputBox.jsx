@@ -12,7 +12,7 @@ const InputBox = ({ onSend }) => {
   const fileUploadRef = useRef(null); // Reference to the file upload component
   const toast = useRef(null); // Reference to the toast component
 
-  const allowedFileTypes = ['text/plain', 'application/pdf', 'image/jpeg', 'image/png'];
+  const allowedFileTypes = ['text/plain', 'application/pdf', 'image/jpeg', 'image/png', 'text/csv'];
 
   // Function to handle send button click
   const handleSendClick = () => {
