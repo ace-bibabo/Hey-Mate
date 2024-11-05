@@ -3,6 +3,7 @@ import os
 import base64
 from io import BytesIO
 from enum import Enum
+import csv
 
 # Import third-party libraries
 import requests
@@ -18,16 +19,22 @@ from django.db import models
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.document_loaders import Document
+from langchain.chains import RetrievalQA
 
 # Load environment variables
 load_dotenv()
 api_host = os.getenv("API_HOST", "http://localhost")
 api_port = os.getenv("API_PORT", "8000")
 
+
 class FileType(Enum):
     FILE = 'FILE'
     IMAGE = 'IMAGE'
     UNKNOWN = 'UNKNOWN'
+
 
 class ChatBot:
     _instance = None
@@ -55,81 +62,93 @@ class ChatBot:
     def chain(self, question, upload_file=None):
         llm = self.chatmodel
         systemMsgs = []
-        defaultPrompt = """
-        you are a data dict bot aims to help users to answers the data relevant qs in cybersecurity.
-        """
-        systemMsgDefault = {"type": "text", "text": f"{defaultPrompt}"}
-        systemMsgs.append(systemMsgDefault)
+        systemMsgs.extend([self.set_default_prompt(), self.set_system_prompt(), self.set_admin_prompt()])
 
-        if upload_file is None:
-            # prompt from rules
-            prompt_rules = f"""
-            Based on the user's input, here are some conversational rules to follow:
-                1. 
-                The user's request is: {question}
-            """
-            # system prompt
-            systemMsgs.append({"type": "text", "text": f"{prompt_rules}"})
+        humanMsgs = []
+        humanMsgs.extend([self.set_human_msg(question)])
 
-            # prompt from db
-            url = f"{api_host}:{api_port}/api/prompts/default/"
-            headers = {
-                'accept': 'application/json',
-                'X-CSRFToken': 'CJXX8NrHT3MadHMw7DkQGlzqHbYlBrwURqMhqvT08axpSFEhufdu2WUHxQbOWdf4'
-            }
-            response = requests.get(url, headers=headers)
-            prompt_content = response.json()
+        # humanMsgs.extend(multi_modal_questions())
 
-            user_prompt = []
-
-            if isinstance(prompt_content, list):
-                for prompt in prompt_content:
-                    user_prompt.append(prompt.get('text', ''))
-            else:
-                user_prompt.append(prompt_content.get('text', ''))
-
-            user_prompt_str = ', '.join(user_prompt)
-            systemMsgs.append({"type": "text", "text": f"{user_prompt_str}"})
-
-            systemMsg = SystemMessage(content=systemMsgs)
-
-            huamanMsg = HumanMessage(
-                content=[
-                    {"type": "text", "text": f"{question}"},
-                ],
-            )
-
-        else:
-            human_content_list = []
-            human_content_list.append({"type": "text", "text": f"{question}"})
-
-            file_result = self.process_uploaded_file(upload_file)
+        if upload_file:
+            file_result = self.process_upload_files(upload_file)
             file_content = file_result['content']
-            if file_result['type'] == FileType.FILE.value:
-                human_content_list.append({"type": "text", "text": f"{file_content}"})
-            if file_result['type'] == FileType.IMAGE.value:
-                human_content_list.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{file_content}"}},)
-            
-            systemMsg = SystemMessage(
-                content=[
-                    {"type": "text",
-                    "text": """
-                     you are a bot to help users to get a better understanding of its data, try to answer by following these instructions:
-                    1. 
-                    """}
-                ]
-            )
-            huamanMsg = HumanMessage(content=human_content_list)
-            print(huamanMsg)
+            return self.update_knowledge_base(file_content)
+            # multiModalInputs = self.multi_modal_questions(file_content)
 
-        self.chat_history.messages.extend([huamanMsg, systemMsg])
+        self.chat_history.messages.extend([humanMsgs, systemMsgs])
 
-        response = llm.invoke(self.chat_history.messages)
+        try:
+            response = self.search_from_knowledge_base(self.chat_history.messages)
+        except Exception as e:
+            response = None
+
+        if response is None:
+            response = llm.invoke(self.chat_history.messages)
+
         print("Initial Res =>", response)
         self.chat_history.add_ai_message(response)
         return response.content
-    
-    def process_uploaded_file(self, upload_file):
+
+    def set_default_prompt(self):
+        defaultPrompt = """
+                you are a data dict bot aims to help users to answers the data relevant qs in cybersecurity.
+                """
+
+        return {"type": "text", "text": f"{defaultPrompt}"}
+
+    def set_system_prompt(self):
+        # prompt from rules
+        system_prompt_str = f"""
+                        Based on the user's input, here are some conversational rules to follow:
+                            1. The user's request
+                            2. out put passe need to follow
+                        """
+        return {"type": "text", "text": f"{system_prompt_str}"}
+
+    def conn_prompt_db(self):
+        url = f"{api_host}:{api_port}/api/prompts/default/"
+        headers = {
+            'accept': 'application/json',
+            'X-CSRFToken': 'CJXX8NrHT3MadHMw7DkQGlzqHbYlBrwURqMhqvT08axpSFEhufdu2WUHxQbOWdf4'
+        }
+        return url, headers
+
+    def set_admin_prompt(self):
+        # prompt from db
+        url, headers = self.conn_prompt_db()
+        response = requests.get(url, headers=headers)
+        prompt_content = response.json()
+
+        admin_set_prompt = []
+
+        if isinstance(prompt_content, list):
+            for prompt in prompt_content:
+                admin_set_prompt.append(prompt.get('text', ''))
+        else:
+            admin_set_prompt.append(prompt_content.get('text', ''))
+
+        admin_prompt_str = ', '.join(admin_set_prompt)
+        return {"type": "text", "text": f"{admin_prompt_str}"}
+
+    def set_human_msg(self, question):
+        return HumanMessage(
+            content=[
+                {"type": "text", "text": f"{question}"},
+            ],
+        )
+    def multi_modal_questions(self, upload_file):
+        file_result = self.upload_file(upload_file)
+        multi_modal_questions = []
+        file_content = file_result['content']
+        if file_result['type'] == FileType.FILE.value:
+            multi_modal_questions.append({"type": "text", "text": f"{file_content}"})
+        if file_result['type'] == FileType.IMAGE.value:
+            multi_modal_questions.append(
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{file_content}"}}, )
+
+        return multi_modal_questions
+
+    def process_upload_files(self, upload_file):
         file_type_ext = upload_file.name.split(".")[-1].lower()
         if file_type_ext == 'txt':
             file_type = FileType.FILE
@@ -140,23 +159,46 @@ class ChatBot:
             file_type = FileType.FILE
             file_content = upload_file.read()
             file_like_object = BytesIO(file_content)
-            
+
             text = ""
             with pdfplumber.open(file_like_object) as pdf:
                 for page in pdf.pages:
-                    text += page.extract_text()       
+                    text += page.extract_text()
             content = text
-    
+
         elif file_type_ext in ['jpg', 'jpeg', 'png']:
             file_type = FileType.IMAGE
             base64_image = base64.b64encode(upload_file.read()).decode('utf-8')
             content = base64_image
-        
-        else:
-            file_type = FileType.UNKNOWN
-            content = "Unsupported file type"
+
+        elif file_type_ext == 'csv':
+            csv_content = upload_file.read().decode('utf-8').splitlines()
+            reader = csv.reader(csv_content)
+
+            content = "\n".join([", ".join(row) for row in reader])
 
         return {"type": file_type.value, "content": content}
+
+    def update_knowledge_base(self, content):
+        documents = [Document(page_content=content)]
+        embeddings = OpenAIEmbeddings()
+        vector_store = FAISS.from_documents(documents, embeddings)
+        vector_store.save_local("faiss_index")
+
+        return "uploaded to local knowledge base successfully"
+
+    def search_from_knowledge_base(self, question):
+        vector_store = FAISS.load_local("faiss_index", OpenAIEmbeddings())
+        retriever = vector_store.as_retriever()
+        qa_chain = RetrievalQA.from_chain_type(
+            llm=self.chatmodel,
+            chain_type="stuff",
+            retriever=retriever
+        )
+
+        answer = qa_chain.run(question)
+        return answer
+
 
 class Prompt(models.Model):
     id = models.AutoField(primary_key=True)
