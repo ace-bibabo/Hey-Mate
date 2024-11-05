@@ -121,6 +121,8 @@ class ChatBot:
         response = requests.get(url, headers=headers)
         prompt_content = response.json()
 
+        print('prompt_content: {}'.format(prompt_content))
+
         admin_set_prompt = []
 
         if isinstance(prompt_content, list):
