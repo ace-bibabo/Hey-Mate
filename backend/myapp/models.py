@@ -171,9 +171,9 @@ class ChatBot:
             content = base64_image
 
         elif file_type_ext == 'csv':
+            file_type = FileType.FILE
             csv_content = upload_file.read().decode('utf-8').splitlines()
             reader = csv.reader(csv_content)
-
             content = "\n".join([", ".join(row) for row in reader])
         else:
             file_type = FileType.UNKNOWN
