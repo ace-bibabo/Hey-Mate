@@ -21,7 +21,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-from langchain.document_loaders import Document
+from langchain.schema import Document
 from langchain.chains import RetrievalQA
 
 # Load environment variables
