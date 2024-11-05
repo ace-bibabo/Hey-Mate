@@ -10,7 +10,6 @@ import {
 } from "@tabler/icons-react";
 import DOMPurify from "dompurify";
 import "./css/ChatMessage.css";
-import BpmnRender from "./BpmnRender";
 import LoadingMessage from "./LoadingMessage";
 
 // Function to flatten tree data structure into a list of rows with key and label
@@ -30,7 +29,6 @@ const flattenTreeData = (node, parentKey = "") => {
 
 // ChatMessage component to display different types of messages
 const ChatMessage = ({ message, isUser, isLoading, showBubble }) => {
-  const bpmnRenderRef = useRef(null); // Reference to BpmnRender component
 
   // Function to handle CSV download
   const handleDownloadCsv = () => {
@@ -52,12 +50,6 @@ const ChatMessage = ({ message, isUser, isLoading, showBubble }) => {
     }
   };
 
-  // Function to handle SVG download
-  const handleDownloadSvg = () => {
-    if (bpmnRenderRef.current) {
-      bpmnRenderRef.current.exportToImage(); // Call exportToImage method from BpmnRender component
-    }
-  };
 
   // Function to get file extension from filename
   const getExtension = (filename) => {
@@ -75,65 +67,6 @@ const ChatMessage = ({ message, isUser, isLoading, showBubble }) => {
       ); // Display loading message if loading
     }
     switch (message.type) {
-      // Render Capability Map
-      case "capabilityMap":
-        return (
-          <div className="message-block" style={{ minWidth: "80%" }}>
-            <div className="message">
-              <Tree value={[message.content][0]} style={{ fontSize: "1rem" }}/>
-            </div>
-            <div className="message-tool-button-container">
-              <Button
-                className="p-button-rounded p-button-icon-only message-tool-button"
-                onClick={handleDownloadCsv}
-              >
-                <IconFileTypeCsv
-                  className="message-tool-button-icon"
-                  size={20}
-                />
-              </Button>
-            </div>
-          </div>
-        );
-      // Render BPMN Diagram
-      case "bpmnWithPreText":
-        return (
-          <div className="message-block" style={{ width: "100%" }}>
-            <div className="message" style={{ width: "100%" }}>
-              <div
-                className="message-bpmn-text-pre-content"
-                style={{ marginBottom: "10px" }}
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    message.preContent.replace(/\n/g, "<br />")
-                  ),
-                }}
-              />
-              <BpmnRender ref={bpmnRenderRef} bpmnXML={message.bpmn}/>{" "}
-              {/* Render BPMN diagram */}
-              <div
-                className="message-bpmn-text-tail-content"
-                style={{ marginTop: "10px" }}
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    message.tailContent.replace(/\n/g, "<br />")
-                  ),
-                }}
-              />
-            </div>
-            <div className="message-tool-button-container">
-              <Button
-                className="p-button-rounded p-button-icon-only message-tool-button"
-                onClick={handleDownloadSvg}
-              >
-                <IconFileTypeSvg
-                  className="message-tool-button-icon"
-                  size={20}
-                />
-              </Button>
-            </div>
-          </div>
-        );
       // Render File and File with text
       case "file":
       case "fileWithText":

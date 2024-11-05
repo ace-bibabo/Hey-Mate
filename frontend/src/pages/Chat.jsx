@@ -96,16 +96,7 @@ const Chat = () => {
         const { answer, type } = response.data.answer;
 
         // Detect content type
-        if (type === "capabilityMap") {
-          const jsonString = answer.match(/```JSON\s+({[\s\S]*?})\s+```/)[1];
-          const capabilityMap = JSON.parse(jsonString);
-          const treeData = convertToTreeData(capabilityMap);
-          addMessage({
-            content: treeData,
-            isUser: false,
-            type: "capabilityMap",
-          });
-        } else if (type === "image") {
+        if (type === "image") {
           const [preContent, bpmnMatch, tailContent] = answer.split("```");
           addMessage({
             preContent: preContent.trim(),

@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
 import './App.css';
 import Chat from "./pages/Chat";
 import Admin from './pages/Admin';
