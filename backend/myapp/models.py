@@ -133,11 +133,8 @@ class ChatBot:
         return {"type": "text", "text": f"{admin_prompt_str}"}
 
     def set_human_msg(self, question):
-        return HumanMessage(
-            content=[
-                {"type": "text", "text": f"{question}"},
-            ],
-        )
+        return {"type": "text", "text": f"{question}"}
+
     def multi_modal_questions(self, upload_file):
         file_result = self.upload_file(upload_file)
         multi_modal_questions = []
