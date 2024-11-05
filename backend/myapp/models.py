@@ -61,11 +61,13 @@ class ChatBot:
     # def chain(self, question, image_path="logical_dataflow.png"):
     def chain(self, question, upload_file=None):
         llm = self.chatmodel
-        systemMsgs = []
-        systemMsgs.extend([self.set_default_prompt(), self.set_system_prompt(), self.set_admin_prompt()])
+        systemMsgList = []
+        systemMsgList.extend([self.set_default_prompt(), self.set_system_prompt(), self.set_admin_prompt()])
+        systemMsgs = SystemMessage(content=systemMsgList)
 
-        humanMsgs = []
-        humanMsgs.extend([self.set_human_msg(question)])
+        humanMsgList = []
+        humanMsgList.extend([self.set_human_msg(question)])
+        humanMsgs = HumanMessage(content=humanMsgList)
 
         # humanMsgs.extend(multi_modal_questions())
 
