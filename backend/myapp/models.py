@@ -175,6 +175,9 @@ class ChatBot:
             reader = csv.reader(csv_content)
 
             content = "\n".join([", ".join(row) for row in reader])
+        else:
+            file_type = FileType.UNKNOWN
+            content = "Unsupported file type"
 
         return {"type": file_type.value, "content": content}
 
