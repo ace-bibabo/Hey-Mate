@@ -11,6 +11,11 @@ This project is Dockerized. Please follow these steps to configure and deploy th
 
    ```text
    OPENAI_API_KEY=your_openai_api_key
+   HOST=your_localhost
+   API_HOST=http://your_localhost
+   API_PORT=8000
+   CORS_ALLOWED_ORIGIN=http://your_localhost:3000
+   REACT_APP_API_BASE_URL=http://your_localhost:8000/api
    ```
 
    Replace `your_openai_api_key` with your actual OpenAI API key. **Note**: Ensure that the `.env` file is not committed to version control. You can add `.env` to your `.gitignore` file to prevent it from being committed.
