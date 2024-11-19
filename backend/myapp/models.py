@@ -152,6 +152,7 @@ class ChatBot:
     def process_upload_files(self, upload_file):
         file_type_ext = upload_file.name.split(".")[-1].lower()
         if file_type_ext == 'txt':
+
             file_type = FileType.FILE
             file_content = upload_file.read().decode('utf-8')
             content = file_content
