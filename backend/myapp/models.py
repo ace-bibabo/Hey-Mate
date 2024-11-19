@@ -189,7 +189,7 @@ class ChatBot:
         embeddings = OpenAIEmbeddings()
 
         try:
-            vector_store = FAISS.load_local('faiss_index', embeddings)
+            vector_store = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             vector_store.add_documents(documents)
         except FileNotFoundError:
             vector_store = FAISS.from_documents(documents, embeddings)
