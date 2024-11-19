@@ -103,7 +103,7 @@ class ChatBot:
         system_prompt_str = f"""
                         Based on the user's input, here are some conversational rules to follow:
                             1. The user's request
-                            2. out put passe need to follow
+                            2. output passe need to follow
                         """
         return {"type": "text", "text": f"{system_prompt_str}"}
 
@@ -121,7 +121,7 @@ class ChatBot:
         response = requests.get(url, headers=headers)
         prompt_content = response.json()
 
-        print('prompt_content: {}'.format(prompt_content))
+        # print('prompt_content: {}'.format(prompt_content))
 
         admin_set_prompt = []
 
@@ -187,7 +187,12 @@ class ChatBot:
     def update_knowledge_base(self, content):
         documents = [Document(page_content=content)]
         embeddings = OpenAIEmbeddings()
-        vector_store = FAISS.from_documents(documents, embeddings)
+
+        try:
+            vector_store = FAISS.load_local('faiss_index', embeddings)
+            vector_store.add_documents(documents)
+        except FileNotFoundError:
+            vector_store = FAISS.from_documents(documents, embeddings)
         vector_store.save_local("faiss_index")
 
         return "uploaded to local knowledge base successfully"
