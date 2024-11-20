@@ -26,7 +26,7 @@ class ChatAPIView(APIView):
             else:
                 question = "This is a task to convert different diagrams to a BPMN 2.0 XML format."
 
-        print("user initial question", question)
+        # print("user initial question", question)
         feedback = self.bot.answer(question, upload_file)
         feedback_lower = feedback.lower()
         type = "capabilityMap" if "```json" in feedback_lower else "image" if "```xml" in feedback_lower else "text"
@@ -35,7 +35,7 @@ class ChatAPIView(APIView):
             "answer": feedback,
             "type": type
         }
-        print(response_data)
+        # print(response_data)
 
         return Response({"answer": response_data}, status=status.HTTP_200_OK)
 
