@@ -81,9 +81,10 @@ class ChatBot:
 
         try:
             response = self.search_from_knowledge_base(self.chat_history.messages)
-            print("Local Database Res =>", response)
-            self.chat_history.add_ai_message(response)
-            return response
+            if response is not None:
+            # print("Local Database Res =>", response)
+                self.chat_history.add_ai_message(response)
+                return response
 
         except Exception as e:
             print("An error occurred while searching from the knowledge base:", e)
@@ -91,7 +92,7 @@ class ChatBot:
 
         if response is None:
             response = llm.invoke(self.chat_history.messages)
-            print("ChatGPT Res =>", response)
+            # print("ChatGPT Res =>", response)
             self.chat_history.add_ai_message(response)
             return response.content
 
@@ -248,7 +249,8 @@ class ChatBot:
             raise ValueError("FAISS index is missing or corrupted. Please build the index first.")
 
         if vector_store.index.ntotal == 0:
-            raise ValueError("FAISS index is empty. Ensure you have added documents to the index.")
+            return None
+            # raise ValueError("FAISS index is empty. Ensure you have added documents to the index.")
 
         retriever = vector_store.as_retriever()
 
