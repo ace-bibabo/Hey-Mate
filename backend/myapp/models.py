@@ -210,8 +210,22 @@ class ChatBot:
     def search_from_knowledge_base(self, question):
         embeddings = OpenAIEmbeddings()
         index_path = "faiss_index"
-        vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
+
+        try:
+            vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
+            print("FAISS index loaded successfully.")
+        except (FileNotFoundError, RuntimeError):
+            raise ValueError("FAISS index is missing or corrupted. Please build the index first.")
+
+        if vector_store.index.ntotal == 0:
+            raise ValueError("FAISS index is empty. Ensure you have added documents to the index.")
+
         retriever = vector_store.as_retriever()
+
+        if not isinstance(question, str):
+            raise ValueError("Input question must be a string.")
+
+        # 构建 QA 链
         qa_chain = RetrievalQA.from_chain_type(
             llm=self.chatmodel,
             chain_type="stuff",
