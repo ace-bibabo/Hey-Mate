@@ -199,7 +199,7 @@ class ChatBot:
             # Create a new FAISS index if loading fails
             print(f"FAISS index not found at {index_path}. Creating a new index.")
             # vector_store = FAISS.from_documents(documents, embeddings)
-            vector_store = FAISS.from_text(content, embeddings)
+            vector_store = FAISS.from_texts([content], embeddings)
 
         # Ensure the directory exists before saving
         os.makedirs(index_path, exist_ok=True)
