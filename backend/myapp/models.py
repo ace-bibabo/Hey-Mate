@@ -81,13 +81,14 @@ class ChatBot:
 
         try:
             response = self.search_from_knowledge_base(self.chat_history.messages)
+            print("Local Database Res =>", response)
+
         except Exception as e:
             response = None
 
         if response is None:
             response = llm.invoke(self.chat_history.messages)
-
-        print("Initial Res =>", response)
+            print("ChatGPT Res =>", response)
         self.chat_history.add_ai_message(response)
         return response.content
 
