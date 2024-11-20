@@ -17,7 +17,7 @@ from django.db import models
 
 # Import LangChain related modules
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
@@ -207,6 +207,21 @@ class ChatBot:
 
         return "Uploaded to local knowledge base successfully"
 
+
+    def extract_text_from_chat_history(self, chat_history):
+        extracted_texts = []
+
+        for message in chat_history.messages:
+            if isinstance(message, (HumanMessage, AIMessage, SystemMessage)):
+                if isinstance(message.content, list):
+                    for item in message.content:
+                        if isinstance(item, dict) and 'text' in item:
+                            extracted_texts.append(item['text'])
+                elif isinstance(message.content, str):
+                    extracted_texts.append(message.content)
+
+        return extracted_texts
+
     def search_from_knowledge_base(self, question):
         embeddings = OpenAIEmbeddings()
         index_path = "faiss_index"
@@ -223,10 +238,9 @@ class ChatBot:
         retriever = vector_store.as_retriever()
 
         if not isinstance(question, str):
-            print(question)
-            raise ValueError("Input question must be a string.")
+            question = self.extract_text_from_chat_history(question)
+            # raise ValueError("Input question must be a string.")
 
-        # 构建 QA 链
         qa_chain = RetrievalQA.from_chain_type(
             llm=self.chatmodel,
             chain_type="stuff",
