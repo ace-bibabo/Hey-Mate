@@ -84,6 +84,7 @@ class ChatBot:
             print("Local Database Res =>", response)
 
         except Exception as e:
+            print("An error occurred while searching from the knowledge base:", e)
             response = None
 
         if response is None:
