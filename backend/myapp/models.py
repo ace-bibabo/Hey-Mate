@@ -187,18 +187,19 @@ class ChatBot:
         return {"type": file_type.value, "content": content}
 
     def update_knowledge_base(self, content):
-        documents = [Document(page_content=content)]
+        # documents = [Document(page_content=content)]
         embeddings = OpenAIEmbeddings()
         index_path = "faiss_index"
 
         try:
             # Attempt to load the existing FAISS index
             vector_store = FAISS.load_local(index_path, embeddings)
-            vector_store.add_documents(documents)
+            # vector_store.add_documents(documents)
         except (FileNotFoundError, RuntimeError):
             # Create a new FAISS index if loading fails
             print(f"FAISS index not found at {index_path}. Creating a new index.")
-            vector_store = FAISS.from_documents(documents, embeddings)
+            # vector_store = FAISS.from_documents(documents, embeddings)
+            vector_store = FAISS.from_text(content, embeddings)
 
         # Ensure the directory exists before saving
         os.makedirs(index_path, exist_ok=True)
