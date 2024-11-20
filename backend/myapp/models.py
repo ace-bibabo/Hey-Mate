@@ -82,6 +82,8 @@ class ChatBot:
         try:
             response = self.search_from_knowledge_base(self.chat_history.messages)
             print("Local Database Res =>", response)
+            self.chat_history.add_ai_message(response)
+            return response
 
         except Exception as e:
             print("An error occurred while searching from the knowledge base:", e)
@@ -90,8 +92,8 @@ class ChatBot:
         if response is None:
             response = llm.invoke(self.chat_history.messages)
             print("ChatGPT Res =>", response)
-        self.chat_history.add_ai_message(response)
-        return response.content
+            self.chat_history.add_ai_message(response)
+            return response.content
 
     def set_default_prompt(self):
         defaultPrompt = """
