@@ -222,33 +222,33 @@ class ChatBot:
 
         return extracted_texts
 
-    def search_from_knowledge_base(self, question):
-        embeddings = OpenAIEmbeddings()
-        index_path = "faiss_index"
+    def extract_text_from_chat_history(self, chat_history):
+        """
+        Extract all text content from ChatMessageHistory or a list of messages.
+        """
+        extracted_texts = []
 
-        try:
-            vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
-            print("FAISS index loaded successfully.")
-        except (FileNotFoundError, RuntimeError):
-            raise ValueError("FAISS index is missing or corrupted. Please build the index first.")
+        # Check if input is a ChatMessageHistory instance
+        if hasattr(chat_history, 'messages'):
+            messages = chat_history.messages
+        elif isinstance(chat_history, list):  # Handle direct list input
+            messages = chat_history
+        else:
+            raise ValueError("Invalid input: Expected ChatMessageHistory or list of messages.")
 
-        if vector_store.index.ntotal == 0:
-            raise ValueError("FAISS index is empty. Ensure you have added documents to the index.")
+        # Extract text from each message
+        for message in messages:
+            if isinstance(message, (HumanMessage, AIMessage, SystemMessage)):
+                if isinstance(message.content, list):
+                    # Extract 'text' field from each dictionary in content
+                    for item in message.content:
+                        if isinstance(item, dict) and 'text' in item:
+                            extracted_texts.append(item['text'])
+                elif isinstance(message.content, str):
+                    # Directly append if content is a string
+                    extracted_texts.append(message.content)
 
-        retriever = vector_store.as_retriever()
-
-        if not isinstance(question, str):
-            question = self.extract_text_from_chat_history(question)
-            # raise ValueError("Input question must be a string.")
-
-        qa_chain = RetrievalQA.from_chain_type(
-            llm=self.chatmodel,
-            chain_type="stuff",
-            retriever=retriever
-        )
-
-        answer = qa_chain.run(question)
-        return answer
+        return extracted_texts
 
 
 class Prompt(models.Model):
