@@ -82,7 +82,7 @@ class ChatBot:
         try:
             response = self.search_from_knowledge_base(self.chat_history.messages)
             if response is not None:
-            # print("Local Database Res =>", response)
+                print("Local Database Res =>")
                 self.chat_history.add_ai_message(response)
                 return response
 
@@ -92,7 +92,7 @@ class ChatBot:
 
         if response is None:
             response = llm.invoke(self.chat_history.messages)
-            # print("ChatGPT Res =>", response)
+            print("ChatGPT Res =>")
             self.chat_history.add_ai_message(response)
             return response.content
 
@@ -255,9 +255,7 @@ class ChatBot:
         retriever = vector_store.as_retriever()
 
         if not isinstance(question, str):
-            print(question)
             question = self.extract_text_from_chat_history(question)
-            print(question)
             # raise ValueError("Input question must be a string.")
 
         qa_chain = RetrievalQA.from_chain_type(
