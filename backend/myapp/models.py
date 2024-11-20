@@ -187,15 +187,22 @@ class ChatBot:
     def update_knowledge_base(self, content):
         documents = [Document(page_content=content)]
         embeddings = OpenAIEmbeddings()
+        index_path = "faiss_index"
 
         try:
-            vector_store = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            # Attempt to load the existing FAISS index
+            vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
             vector_store.add_documents(documents)
-        except FileNotFoundError:
+        except (FileNotFoundError, RuntimeError):
+            # Create a new FAISS index if loading fails
+            print(f"FAISS index not found at {index_path}. Creating a new index.")
             vector_store = FAISS.from_documents(documents, embeddings)
-        vector_store.save_local("faiss_index")
 
-        return "uploaded to local knowledge base successfully"
+        # Ensure the directory exists before saving
+        os.makedirs(index_path, exist_ok=True)
+        vector_store.save_local(index_path)
+
+        return "Uploaded to local knowledge base successfully"
 
     def search_from_knowledge_base(self, question):
         vector_store = FAISS.load_local("faiss_index", OpenAIEmbeddings())
