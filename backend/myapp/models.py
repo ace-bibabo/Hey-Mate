@@ -233,7 +233,7 @@ class ChatBot:
                     # Directly append if content is a string
                     extracted_texts.append(message.content)
 
-        return extracted_texts
+        return '\n'.join(extracted_texts)
 
     def search_from_knowledge_base(self, question):
         embeddings = OpenAIEmbeddings()
@@ -251,7 +251,9 @@ class ChatBot:
         retriever = vector_store.as_retriever()
 
         if not isinstance(question, str):
+            print(question)
             question = self.extract_text_from_chat_history(question)
+            print(question)
             # raise ValueError("Input question must be a string.")
 
         qa_chain = RetrievalQA.from_chain_type(
