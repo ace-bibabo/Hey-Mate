@@ -223,6 +223,7 @@ class ChatBot:
         retriever = vector_store.as_retriever()
 
         if not isinstance(question, str):
+            print(question)
             raise ValueError("Input question must be a string.")
 
         # 构建 QA 链
