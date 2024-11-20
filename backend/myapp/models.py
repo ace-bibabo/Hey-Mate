@@ -193,7 +193,7 @@ class ChatBot:
 
         try:
             # Attempt to load the existing FAISS index
-            vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
+            vector_store = FAISS.load_local(index_path, embeddings)
             vector_store.add_documents(documents)
         except (FileNotFoundError, RuntimeError):
             # Create a new FAISS index if loading fails
