@@ -207,21 +207,6 @@ class ChatBot:
 
         return "Uploaded to local knowledge base successfully"
 
-
-    def extract_text_from_chat_history(self, chat_history):
-        extracted_texts = []
-
-        for message in chat_history.messages:
-            if isinstance(message, (HumanMessage, AIMessage, SystemMessage)):
-                if isinstance(message.content, list):
-                    for item in message.content:
-                        if isinstance(item, dict) and 'text' in item:
-                            extracted_texts.append(item['text'])
-                elif isinstance(message.content, str):
-                    extracted_texts.append(message.content)
-
-        return extracted_texts
-
     def extract_text_from_chat_history(self, chat_history):
         """
         Extract all text content from ChatMessageHistory or a list of messages.
@@ -249,6 +234,34 @@ class ChatBot:
                     extracted_texts.append(message.content)
 
         return extracted_texts
+
+    def search_from_knowledge_base(self, question):
+        embeddings = OpenAIEmbeddings()
+        index_path = "faiss_index"
+
+        try:
+            vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
+            print("FAISS index loaded successfully.")
+        except (FileNotFoundError, RuntimeError):
+            raise ValueError("FAISS index is missing or corrupted. Please build the index first.")
+
+        if vector_store.index.ntotal == 0:
+            raise ValueError("FAISS index is empty. Ensure you have added documents to the index.")
+
+        retriever = vector_store.as_retriever()
+
+        if not isinstance(question, str):
+            question = self.extract_text_from_chat_history(question)
+            # raise ValueError("Input question must be a string.")
+
+        qa_chain = RetrievalQA.from_chain_type(
+            llm=self.chatmodel,
+            chain_type="stuff",
+            retriever=retriever
+        )
+
+        answer = qa_chain.run(question)
+        return answer
 
 
 class Prompt(models.Model):
