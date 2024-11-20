@@ -193,7 +193,7 @@ class ChatBot:
 
         try:
             # Attempt to load the existing FAISS index
-            vector_store = FAISS.load_local(index_path, embeddings)
+            vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
             # vector_store.add_documents(documents)
         except (FileNotFoundError, RuntimeError):
             # Create a new FAISS index if loading fails
@@ -208,7 +208,9 @@ class ChatBot:
         return "Uploaded to local knowledge base successfully"
 
     def search_from_knowledge_base(self, question):
-        vector_store = FAISS.load_local("faiss_index", OpenAIEmbeddings())
+        embeddings = OpenAIEmbeddings()
+        index_path = "faiss_index"
+        vector_store = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
         retriever = vector_store.as_retriever()
         qa_chain = RetrievalQA.from_chain_type(
             llm=self.chatmodel,
