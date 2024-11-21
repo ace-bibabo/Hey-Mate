@@ -61,7 +61,9 @@ Where:
 Triplet loss enforces that the anchor is closer to the positive example than the negative example by a margin \(m\).
 
 **Mathematical Formula**:
-L = max(0, ||f(a) - f(p)||^2 - ||f(a) - f(n)||^2 + m)
+\[
+\mathcal{L} = \max(0, \|f(a) - f(p)\|^2 - \|f(a) - f(n)\|^2 + m)
+\]
 
 
 Where:
