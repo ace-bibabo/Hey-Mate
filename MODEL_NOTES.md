@@ -61,9 +61,7 @@ Where:
 Triplet loss enforces that the anchor is closer to the positive example than the negative example by a margin \(m\).
 
 **Mathematical Formula**:
-\[
-\mathcal{L} = \max(0, \|f(a) - f(p)\|^2 - \|f(a) - f(n)\|^2 + m)
-\]
+L = max(0, ||f(a) - f(p)||^2 - ||f(a) - f(n)||^2 + m)
 
 
 Where:
@@ -107,4 +105,3 @@ Where:
 ### reference 
 1. [Text and Code Embeddings by Contrastive Pre-Training](https://arxiv.org/pdf/2201.10005#page=12&zoom=100,48,565)
 1. [Improved Deep Metric Learning with Multi-class N-pair Loss Objective](https://papers.nips.cc/paper_files/paper/2016/file/6b180037abbebea991d8b1232f8a8ca9-Paper.pdf)
-
