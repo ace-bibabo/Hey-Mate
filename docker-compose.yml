@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   frontend:
     build:
@@ -9,8 +10,6 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend/src:/app/src
-
-
 
   web:
     build:
