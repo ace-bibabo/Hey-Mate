@@ -13,8 +13,6 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 
 ## System Architecture Diagram
 
-<img width="306" alt="Screenshot 2024-11-23 at 2 33 53 pm" src="https://github.com/user-attachments/assets/2cdfc152-d35e-4485-a96b-911f064fc4d6">
-
 ### Components and Interactions
 
 1. **Admin Interface**:
@@ -67,6 +65,8 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
    - The chatbot interface displays the response, enriched by the RAG module, providing the user with an answer that reflects the uploaded document's context.
 
 ## Technology Stack
+
+<img width="306" alt="Screenshot 2024-11-23 at 2 33 53 pm" src="https://github.com/user-attachments/assets/2cdfc152-d35e-4485-a96b-911f064fc4d6">
 
 ### Front-End
 - **React JS**: Used for building dynamic user interfaces with a component-based structure for reusability.
