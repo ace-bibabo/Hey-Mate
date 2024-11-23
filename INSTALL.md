@@ -44,7 +44,7 @@ This project is Dockerized. Please follow these steps to configure and deploy th
 3. **Build and Start the Application**:
    Run the following command to build and start the Docker containers:
    ```bash
-   docker-compose up --build
+   docker-compose up --build > log.txt 2>&1 &
    ```
 
 4. **Access the Application**:
