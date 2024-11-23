@@ -2,9 +2,9 @@
 
 ## Overview
 
-This application provides a robust chatbot interface designed for **Admins** and **Users**. Admins configure prompts that guide the chatbot's responses, while Users interact with the chatbot to gain specific insights based on the local knowledge base.
+This application provides a chatbot interface designed for **Admins** and **Users**. Admins configure prompts that guide the chatbot's responses, while Users interact with the chatbot to gain specific insights based on the local knowledge base.
 
-An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatbot to retrieve and generate answers based on user-uploaded documents, providing responses grounded in specific user-provided knowledge.
+An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatbot to retrieve and generate answers based on user-uploaded documents, providing responses grounded in specific knowledge.
 
 ## System Roles and Responsibilities
 
