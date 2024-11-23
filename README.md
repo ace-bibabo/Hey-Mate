@@ -2,7 +2,7 @@
 
 ## Overview
 
-This system provides a robust chatbot interface designed for **Admins** and **Users**. Admins configure prompts that guide the chatbot's responses, while Users interact with the chatbot to gain industry-specific insights.
+This application provides a robust chatbot interface designed for **Admins** and **Users**. Admins configure prompts that guide the chatbot's responses, while Users interact with the chatbot to gain specific insights based on the local knowledge base.
 
 An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatbot to retrieve and generate answers based on user-uploaded documents, providing responses grounded in specific user-provided knowledge.
 
@@ -12,6 +12,8 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 - **Users**: Queries the chatbot with industry-specific questions, uploads files or images for knowledge enrichment, and receives structured responses.
 
 ## System Architecture Diagram
+
+<img width="306" alt="Screenshot 2024-11-23 at 2 33 53 pm" src="https://github.com/user-attachments/assets/2cdfc152-d35e-4485-a96b-911f064fc4d6">
 
 ### Components and Interactions
 
@@ -44,6 +46,10 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
    - Displays responses to the Users in a conversational format and supports interactions like file uploads and image processing.
 
 ### Workflow of Capability Components
+
+<img width="915" alt="Screenshot 2024-11-23 at 2 31 30 pm" src="https://github.com/user-attachments/assets/35f2c09e-ff87-4e04-abb2-ba3cf8a5ba1c">
+
+
 
 1. **Prompt Setup by Admin**:
    - The Admin configures prompts through the admin interface, and these are stored in the Prompt Library.
@@ -106,6 +112,8 @@ An advanced feature, **Retrieval-Augmented Generation (RAG)**, enables the chatb
 - **Stable API Services**: DRF enables stable API interfaces, supporting reliable communication between the front-end and back-end.
 
 ## Chatbot Capabilities
+
+<img width="627" alt="Screenshot 2024-11-23 at 2 33 02 pm" src="https://github.com/user-attachments/assets/500df321-4c6e-41f1-9277-9ce1e06406c5">
 
 - **Prompt Engine**: Manages prompt retrieval, processing, and input-output handling.
 - **RAG with LangChain**: Integrates LangChain’s document loader, embedding, and retrieval capabilities to enhance responses using user-uploaded documents.
